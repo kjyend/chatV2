@@ -16,4 +16,8 @@ public class Room {
         this.roomManager = roomManager;
         roomManager.addRoom(this);
     }
+
+    public synchronized void addSession(Session session) {
+        sessions.add(session);
+    }
 }
