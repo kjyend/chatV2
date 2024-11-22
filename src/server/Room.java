@@ -20,4 +20,8 @@ public class Room {
     public synchronized void addSession(Session session) {
         sessions.add(session);
     }
+
+    public synchronized void removeSession(Session session) {
+        sessions.remove(session);
+    }
 }
