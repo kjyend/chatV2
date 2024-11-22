@@ -9,4 +9,8 @@ public class RoomManager {
     public synchronized void addRoom(Room room) {
         rooms.add(room);
     }
+
+    public synchronized void removeRoom(Room room) {
+        rooms.remove(room);
+    }
 }
