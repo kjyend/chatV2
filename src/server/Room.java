@@ -47,4 +47,11 @@ public class Room {
             }
         }
     }
+
+    public synchronized void setMaxUsers(int maxUsers) {
+        if (currentUsers > maxUsers) {
+            throw new IllegalArgumentException("현재 인원이 최대 인원보다 많습니다.");
+        }
+        this.maxUsers = maxUsers;
+    }
 }
