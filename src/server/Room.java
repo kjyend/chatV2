@@ -1,5 +1,6 @@
 package server;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,5 +28,15 @@ public class Room {
 
     public synchronized void removeSession(Session session) {
         sessions.remove(session);
+    }
+
+    public synchronized void sendRoomAll(String message) {
+        for (Session session : sessions) {
+            try {
+                session.send(message);
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 }
