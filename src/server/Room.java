@@ -54,4 +54,14 @@ public class Room {
         }
         this.maxUsers = maxUsers;
     }
+
+    public synchronized List<String> getAllUsers() {
+        List<String> usernames = new ArrayList<>();
+        for (Session session : sessions) {
+            if (session.getUsername() != null) {
+                usernames.add(session.getUsername());
+            }
+        }
+        return usernames;
+    }
 }
