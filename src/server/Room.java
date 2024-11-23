@@ -23,6 +23,10 @@ public class Room {
     }
 
     public synchronized void addSession(Session session) {
+        if (currentUsers + 1 > maxUsers) {
+            throw new RuntimeException("최대 인원 수를 초과하여 입장할 수 없습니다.");
+        }
+        currentUsers++;
         sessions.add(session);
     }
 
