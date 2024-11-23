@@ -31,7 +31,11 @@ public class Room {
     }
 
     public synchronized void removeSession(Session session) {
+        currentUsers--;
         sessions.remove(session);
+        if (currentUsers == 0) {
+            roomManager.removeRoom(this);
+        }
     }
 
     public synchronized void sendRoomAll(String message) {
