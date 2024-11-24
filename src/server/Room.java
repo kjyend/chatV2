@@ -68,4 +68,8 @@ public class Room {
     public synchronized String getName() {
         return name;
     }
+
+    public synchronized String getPassword() {
+        return password;
+    }
 }
