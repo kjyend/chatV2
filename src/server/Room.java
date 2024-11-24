@@ -64,4 +64,8 @@ public class Room {
         }
         return usernames;
     }
+
+    public synchronized String getName() {
+        return name;
+    }
 }
