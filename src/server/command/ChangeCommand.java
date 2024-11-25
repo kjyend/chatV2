@@ -1,20 +1,34 @@
 package server.command;
 
+import server.Room;
+import server.RoomManager;
 import server.Session;
-import server.SessionManager;
+
+import java.io.IOException;
+import java.util.List;
 
 public class ChangeCommand implements Command {
 
-    private final SessionManager sessionManager;
+    private final RoomManager roomManager;
 
-    public ChangeCommand(SessionManager sessionManager) {
-        this.sessionManager = sessionManager;
+    public ChangeCommand(RoomManager roomManager) {
+        this.roomManager = roomManager;
     }
 
     @Override
-    public void execute(String[] args, Session session) {
+    public void execute(String[] args, Session session) throws IOException {
         String changeName = args[1];
-        sessionManager.sendAll(session.getUsername() + "님이 " + changeName + "로 이름을 변경했습니다.");
+
+        if (session.getRoomName() != null) {
+            List<Room> rooms = roomManager.getRooms();
+            for (Room room : rooms) {
+                if (room.getName().equals(changeName)) {
+                    room.sendRoomAll(session.getUsername() + "님이 " + changeName + "로 이름을 변경했습니다.");
+                }
+            }
+        } else {
+            session.send(session.getUsername() + "님이 " + changeName + "로 이름을 변경했습니다.");
+        }
         session.setUsername(changeName);
     }
 }
