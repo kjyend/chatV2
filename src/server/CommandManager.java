@@ -12,11 +12,15 @@ public class CommandManager {
     private final Map<String, Command> commands = new HashMap<>();
     private final Command defaultCommand = new DefaultCommand();
 
-    public CommandManager(SessionManager sessionManager) {
+    public CommandManager(SessionManager sessionManager, RoomManager roomManager) {
         commands.put("/join", new JoinCommand(sessionManager));
-        commands.put("/message", new MessageCommand(sessionManager));
-        commands.put("/change", new ChangeCommand(sessionManager));
-        commands.put("/users", new UsersCommand(sessionManager));
+        commands.put("/rooms", new RoomsCommand(roomManager));
+        commands.put("/make", new MakeCommand(roomManager));
+        commands.put("/enter", new EnterCommand(roomManager));
+        commands.put("/message", new MessageCommand(roomManager));
+        commands.put("/change", new ChangeCommand(roomManager));
+        commands.put("/users", new UsersCommand(roomManager));
+        commands.put("/leave", new LeaveCommand(roomManager));
         commands.put("/exit", new ExitCommand());
     }
 
