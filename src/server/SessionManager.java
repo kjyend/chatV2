@@ -1,6 +1,5 @@
 package server;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,16 +20,6 @@ public class SessionManager {
             session.close();
         }
         sessions.clear();
-    }
-
-    public synchronized void sendAll(String message) {
-        for (Session session : sessions) {
-            try {
-                session.send(message);
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-            }
-        }
     }
 
     public synchronized List<String> getAllUsername() {

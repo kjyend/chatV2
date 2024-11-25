@@ -41,7 +41,6 @@ public class Session implements Runnable {
             System.out.println(e.getMessage());
         } finally {
             sessionManager.remove(this);
-            sessionManager.sendAll(username + "님이 퇴장했습니다.");
         }
     }
 
