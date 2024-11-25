@@ -21,6 +21,7 @@ public class LeaveCommand implements Command {
         for (Room room : rooms) {
             if (session.getRoomName().equals(room.getName())) {
                 room.removeSession(session);
+                session.setRoomName(null);
                 room.sendRoomAll(session.getUsername() + "님이 방을 나갔습니다.");
             }
         }
