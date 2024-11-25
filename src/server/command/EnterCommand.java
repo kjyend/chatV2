@@ -29,6 +29,6 @@ public class EnterCommand implements Command {
 
         session.setRoomName(roomName);
         room.addSession(session);
-        room.sendRoomAll(session.getUsername() + "님이 입장했습니다.");
+        room.sendRoomAll(session.getUsername() + "님이 " + roomName + "방에 입장했습니다.");
     }
 }
