@@ -62,6 +62,10 @@ public class Session implements Runnable {
         return username;
     }
 
+    public String getRoomName() {
+        return roomName;
+    }
+
     public void setUsername(String username) {
         this.username = username;
     }
