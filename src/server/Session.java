@@ -17,6 +17,7 @@ public class Session implements Runnable {
 
     private boolean closed = false;
     private String username;
+    private String roomName;
 
     public Session(Socket socket, CommandManager commandManager, SessionManager sessionManager) throws IOException {
         this.socket = socket;
@@ -63,5 +64,9 @@ public class Session implements Runnable {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
     }
 }
