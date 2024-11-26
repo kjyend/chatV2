@@ -20,9 +20,9 @@ public class LeaveCommand implements Command {
         List<Room> rooms = roomManager.getRooms();
         for (Room room : rooms) {
             if (session.getRoomName().equals(room.getName())) {
+                room.sendRoomAll(session.getUsername() + "님이 방을 나갔습니다.");
                 room.removeSession(session);
                 session.setRoomName(null);
-                room.sendRoomAll(session.getUsername() + "님이 방을 나갔습니다.");
             }
         }
     }
