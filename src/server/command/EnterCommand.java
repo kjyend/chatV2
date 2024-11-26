@@ -28,7 +28,7 @@ public class EnterCommand implements Command {
         }
 
         Room room = optionalRoom.get();
-        if (!room.getPassword().isEmpty()) {
+        if (room.getPassword() != null) {
             if (args.length < 3) {
                 session.send("비밀번호가 필요합니다.");
                 return;
