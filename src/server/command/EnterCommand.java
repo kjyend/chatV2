@@ -5,6 +5,7 @@ import server.RoomManager;
 import server.Session;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class EnterCommand implements Command {
 
@@ -18,12 +19,24 @@ public class EnterCommand implements Command {
     public void execute(String[] args, Session session) throws IOException {
         String roomName = args[1];
 
-        Room room = roomManager.getRooms().stream().filter(r -> r.getName().equals(roomName))
-                .findFirst().orElseThrow(() -> new IOException("같은 이름의 방이 없습니다: " + roomName));
+        Optional<Room> optionalRoom = roomManager.getRooms().stream().filter(r -> r.getName().equals(roomName))
+                .findFirst();
 
+        if (optionalRoom.isEmpty()) {
+            session.send("같은 이름의 방이 없습니다: " + roomName);
+            return;
+        }
+
+        Room room = optionalRoom.get();
         if (!room.getPassword().isEmpty()) {
+            if (args.length < 3) {
+                session.send("비밀번호가 필요합니다.");
+                return;
+            }
+
             if (!room.getPassword().equals(args[2])) {
-                throw new IllegalArgumentException("비밀번호가 맞지 않습니다.");
+                session.send("비밀번호가 맞지 않습니다.");
+                return;
             }
         }
 
