@@ -5,6 +5,7 @@ import server.RoomManager;
 import server.Session;
 
 import java.io.IOException;
+import java.util.List;
 
 public class MakeCommand implements Command {
 
@@ -17,20 +18,20 @@ public class MakeCommand implements Command {
     @Override
     public void execute(String[] args, Session session) throws IOException {
         String roomName = args[1];
-        String password = args[2];
 
-        roomManager.getRooms().stream()
-                .filter(r -> r.getName().equals(roomName))
-                .findFirst()
-                .ifPresent(r -> {
-                    throw new IllegalArgumentException("같은 이름의 방이 있습니다.");
-                });
-        
-        if (password.isEmpty()) {
-            new Room(roomName, null, roomManager);
-        } else {
-            new Room(roomName, password, roomManager);
+        List<Room> rooms = roomManager.getRooms();
+        for (Room room : rooms) {
+            if (room.getName().equals(roomName)) {
+                session.send("같은 이름의 방이 있습니다.");
+                return;
+            }
         }
 
+        if (args.length < 3) {
+            new Room(roomName, null, roomManager);
+        } else {
+            new Room(roomName, args[2], roomManager);
+        }
+        session.send(roomName + "방을 만들었습니다.");
     }
 }
