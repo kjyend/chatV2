@@ -22,7 +22,7 @@ public class ChangeCommand implements Command {
         if (session.getRoomName() != null) {
             List<Room> rooms = roomManager.getRooms();
             for (Room room : rooms) {
-                if (room.getName().equals(changeName)) {
+                if (room.getName().equals(session.getRoomName())) {
                     room.sendRoomAll(session.getUsername() + "님이 " + changeName + "로 이름을 변경했습니다.");
                 }
             }
