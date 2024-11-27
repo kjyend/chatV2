@@ -1,11 +1,9 @@
 package server.command;
 
-import server.Room;
 import server.RoomManager;
 import server.Session;
 
 import java.io.IOException;
-import java.util.List;
 
 public class ChangeCommand implements Command {
 
@@ -18,16 +16,11 @@ public class ChangeCommand implements Command {
     @Override
     public void execute(String[] args, Session session) throws IOException {
         String changeName = args[1];
-
+        String message = session.getUsername() + "님이 " + changeName + "로 이름을 변경했습니다.";
         if (session.getRoomName() != null) {
-            List<Room> rooms = roomManager.getRooms();
-            for (Room room : rooms) {
-                if (room.getName().equals(session.getRoomName())) {
-                    room.sendRoomAll(session.getUsername() + "님이 " + changeName + "로 이름을 변경했습니다.");
-                }
-            }
+            roomManager.sendRoomMessage(session.getRoomName(), message);
         } else {
-            session.send(session.getUsername() + "님이 " + changeName + "로 이름을 변경했습니다.");
+            session.send(message);
         }
         session.setUsername(changeName);
     }
