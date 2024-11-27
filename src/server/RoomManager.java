@@ -24,4 +24,12 @@ public class RoomManager {
         }
         return roomList;
     }
+
+    public synchronized void sendRoomMessage(String roomName, String message) {
+        for (Room room : rooms) {
+            if (room.getName().equals(roomName)) {
+                room.sendRoomAll(message);
+            }
+        }
+    }
 }
