@@ -19,7 +19,7 @@ public class CommandManager {
         commands.put("/enter", new EnterCommand(roomManager));
         commands.put("/message", new MessageCommand(roomManager));
         commands.put("/change", new ChangeCommand(roomManager));
-        commands.put("/users", new UsersCommand(roomManager));
+        commands.put("/users", new UsersCommand(roomManager, sessionManager));
         commands.put("/leave", new LeaveCommand(roomManager));
         commands.put("/exit", new ExitCommand());
     }
